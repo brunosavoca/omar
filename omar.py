@@ -12,7 +12,6 @@ from langchain. chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 import os
 # Set the API Key
-openai.api_key = st.secrets["api_secret"]
 
 # Set up the user interface layout
 st.title("OmarGPT - Chateá con tus documentos")
