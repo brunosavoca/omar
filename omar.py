@@ -11,6 +11,7 @@ from langchain.vectorstores import DocArrayInMemorySearch
 from langchain. chains.question_answering import load_qa_chain 
 from langchain.llms import OpenAI
 import os
+import openai
 # Set the API Key
 
 # Set up the user interface layout
