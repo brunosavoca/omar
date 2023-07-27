@@ -12,7 +12,7 @@ from langchain.llms import OpenAI
 import os
 
 # Set the API Key
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = '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'
 
 # Set up the user interface layout
 st.title("OmarGPT - Chateá con tus documentos")
