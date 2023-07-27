@@ -10,9 +10,14 @@ from langchain.vectorstores import DocArrayInMemorySearch
 from langchain. chains.question_answering import load_qa_chain 
 from langchain.llms import OpenAI
 import os
+from dotenv import load_dotenv
 
 # Set the API Key
-os.environ['OPENAI_API_KEY'] = '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'
+
+load_dotenv() 
+OPENAI_API_KEY='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'
+
+API_KEY = os.environ['OPENAI_API_KEY']
 
 # Set up the user interface layout
 st.title("OmarGPT - Chateá con tus documentos")
@@ -45,7 +50,7 @@ if pdf_file is not None:
     chain = load_qa_chain(OpenAI(), chain_type="stuff")
 
     query = st.text_input("Qué necesitas saber de este documento?", "breve resumen de este documento")
-    if st.button("Search"):
+    if st.button("Buscar"):
         docs = docsearch.similarity_search(query)
         answer = chain.run(input_documents=docs, question=query)
         st.write(answer)
