@@ -1,4 +1,3 @@
-import PyPDF2
 import streamlit as st
 from PyPDF2 import PdfReader 
 from langchain. embeddings.openai import OpenAIEmbeddings 
@@ -11,8 +10,16 @@ from langchain.vectorstores import DocArrayInMemorySearch
 from langchain. chains.question_answering import load_qa_chain 
 from langchain.llms import OpenAI
 import os
+from dotenv import load_dotenv
+
 # Set the API Key
 
+def main():
+    load_dotenv() 
+    print(os.getenv("OPENAI_API_KEY"))  
+
+if __name__ == "__main__":
+    
 # Set up the user interface layout
 st.title("OmarGPT - Chateá con tus documentos")
 pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
@@ -36,8 +43,8 @@ if pdf_file is not None:
     )
     texts = text_splitter.split_text(raw_text)
 
-    openai_api_key = ["OPENAI_API_KEY"]
-    embeddings = OpenAIEmbeddings(openai_api_key="OPENAI_API_KEY")
+    embeddings = OpenAIEmbeddings()
+
     docsearch = FAISS.from_texts(texts, embeddings)
 
     #acá se puede utilizar diferentes modelos, en este caso será OpenAI
