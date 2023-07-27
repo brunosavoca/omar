@@ -1,3 +1,4 @@
+import PyPDF2
 import streamlit as st
 from PyPDF2 import PdfReader 
 from langchain. embeddings.openai import OpenAIEmbeddings 
