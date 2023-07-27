@@ -13,11 +13,6 @@ from langchain.llms import OpenAI
 import os
 # Set the API Key
 
-load_dotenv() 
-OPENAI_API_KEY='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'
-
-API_KEY = os.environ['OPENAI_API_KEY']
-
 # Set up the user interface layout
 st.title("OmarGPT - Chateá con tus documentos")
 pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
