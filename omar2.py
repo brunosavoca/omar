@@ -31,6 +31,8 @@ if pdf_file is not None and pdf_file.size > 0:
         if text:
             raw_text += text
 
+    texts = text_splitter.split_text(raw_text)
+
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     docsearch = FAISS.from_texts(texts, embeddings)  # Make sure FAISS is available
 
