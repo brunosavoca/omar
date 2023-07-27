@@ -11,8 +11,6 @@ from langchain.vectorstores import DocArrayInMemorySearch
 from langchain. chains.question_answering import load_qa_chain 
 from langchain.llms import OpenAI
 import os
-from dotenv import load_dotenv
-
 # Set the API Key
 
 load_dotenv() 
