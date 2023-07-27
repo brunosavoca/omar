@@ -36,7 +36,7 @@ if pdf_file is not None:
     )
     texts = text_splitter.split_text(raw_text)
 
-    openai_api_key = st.secrets["OPENAI_API_KEY"]
+    openai_api_key = ["OPENAI_API_KEY"]
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
     docsearch = FAISS.from_texts(texts, embeddings)
