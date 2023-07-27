@@ -20,17 +20,23 @@ openai_api_key = "OPENAI_API_KEY"
 st.title("OmarGPT - Chateá con tus documentos")
 pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
 
-if pdf_file is not None and pdf_file.size > 0:
+if pdf_file is not None:
     # Process the uploaded file
     reader = PdfReader(pdf_file)
 
     # read data from the file and put them into a variable called raw_text
-    raw_text = ''
+    raw_text =''
     for i, page in enumerate(reader.pages):
         text = page.extract_text()
         if text:
             raw_text += text
-
+        
+    text_splitter = CharacterTextSplitter(
+        separator = "\n",
+        chunk_size = 1000,
+        chunk_overlap = 200,
+        length_function = len,
+    )
     texts = text_splitter.split_text(raw_text)
 
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
