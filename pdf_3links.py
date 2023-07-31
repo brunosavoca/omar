@@ -46,11 +46,11 @@ st.header('Interactuar con PDFs')
 
 uploaded_file = st.file_uploader("Elige un archivo PDF", type="pdf")
 if uploaded_file is not None:
-    pdf_file = PyPDF2.PdfFileReader(BytesIO(uploaded_file.getvalue()))
-    num_pages = pdf_file.numPages
+    pdf_file = PyPDF2.PdfReader(BytesIO(uploaded_file.getvalue()))
+    num_pages = len(pdf_file.pages)
     text_from_pdf = ''
     for page in range(num_pages):
-        text_from_pdf += pdf_file.getPage(page).extractText()
+        text_from_pdf += pdf_file.pages[page].extract_text()
 
     question = st.text_input("Introduce tu pregunta")
 
