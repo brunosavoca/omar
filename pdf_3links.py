@@ -11,25 +11,36 @@ openai.api_key = st.sidebar.text_input("Introduce tu OpenAI API Key")
 # Interacción con PDFs
 st.header('Interactuar con PDFs')
 
-uploaded_file = st.file_uploader("Elige un archivo PDF", type="pdf")
-if uploaded_file is not None:
-    pdf_file = PyPDF2.PdfReader(BytesIO(uploaded_file.getvalue()))
-    num_pages = len(pdf_file.pages)
-    text_from_pdf = ''
-    for page in range(num_pages):
-        text_from_pdf += pdf_file.pages[page].extract_text()
+pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
 
-    question = st.text_input("Introduce tu pregunta")
+        if pdf_file is not None:
+            # Process the uploaded file
+            reader = PdfReader(pdf_file)
 
-    if st.button('Obtener respuesta del PDF'):
-        if question and openai.api_key and text_from_pdf:
-            response = openai.ChatCompletion.create(
-              model="gpt-3.5-turbo",
-              messages=[
-                {"role": "system", "content": text_from_pdf},
-                {"role": "user", "content": question},
-              ]
+            # read data from the file and put them into a variable called raw_text
+            raw_text =''
+            for i, page in enumerate(reader.pages):
+                text = page.extract_text()
+                if text:
+                    raw_text += text
+                
+            text_splitter = CharacterTextSplitter(
+                separator = "\n",
+                chunk_size = 1000,
+                chunk_overlap = 200,
+                length_function = len,
             )
-            st.write(response['choices'][0]['message']['content'])
-        else:
-            st.write("Por favor, asegúrate de haber cargado el PDF, ingresado una pregunta y tu OpenAI API Key.")
+            texts = text_splitter.split_text(raw_text)
+
+            embeddings = OpenAIEmbeddings()
+
+            docsearch = FAISS.from_texts(texts, embeddings)
+
+            #acá se puede utilizar diferentes modelos, en este caso será OpenAI
+            chain = load_qa_chain(OpenAI(), chain_type="stuff")
+
+            query = st.text_input("Qué necesitas saber de este documento?", "breve resumen de este documento")
+            if query:
+                docs = docsearch.similarity_search(query)
+                answer = chain.run(input_documents=docs, question=query)
+                st.write(answer)
