@@ -16,7 +16,7 @@ def main():
     st.title("OmarGPT - Chateá con tus documentos")
     OPENAI_API_KEY = st.text_input("Ingresá la clave acá", type="password")
 
-    if OPENAI_API_KEY:
+    if OPENAI_API_KEY and pdf_file is not None:
         os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
         pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
