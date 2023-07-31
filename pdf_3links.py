@@ -23,12 +23,13 @@ if uploaded_file is not None:
 
     if st.button('Obtener respuesta del PDF'):
         if question and openai.api_key and text_from_pdf:
-            response = openai.Completion.create(
-              engine="gpt-3.5-turbo",
-              prompt=f'{text_from_pdf}\nQuestion: {question}\nAnswer:',
-              temperature=0.5,
-              max_tokens=5000
+            response = openai.ChatCompletion.create(
+              model="gpt-3.5-turbo",
+              messages=[
+                {"role": "system", "content": text_from_pdf},
+                {"role": "user", "content": question},
+              ]
             )
-            st.write(response.choices[0].text.strip())
+            st.write(response['choices'][0]['message']['content'])
         else:
             st.write("Por favor, asegúrate de haber cargado el PDF, ingresado una pregunta y tu OpenAI API Key.")
