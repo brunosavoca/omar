@@ -14,7 +14,12 @@ from langchain.llms import OpenAI
 # Set up the user interface layout
 def main():
     st.title("OmarGPT - Chateá con tus documentos")
-    pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
+    OPENAI_API_KEY = st.text_input("Ingresá la clave acá", type="password")
+
+    if OPENAI_API_KEY:
+        os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+
+        pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
 
     if pdf_file is not None:
         # Process the uploaded file
