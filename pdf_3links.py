@@ -26,10 +26,10 @@ def generate_article(url1, url2, url3):
     combined_content = content1 + " " + content2 + " " + content3
 
     response = openai.Completion.create(
-      engine="gpt-4-32k-0314",
+      engine="gpt-3.5-turbo",
       prompt=combined_content,
       temperature=0.1,
-      max_tokens=30000
+      max_tokens=5000
     )
     
     return response.choices[0].text.strip()
@@ -57,10 +57,10 @@ if uploaded_file is not None:
     if st.button('Obtener respuesta del PDF'):
         if question and openai.api_key and text_from_pdf:
             response = openai.Completion.create(
-              engine="gpt-4-32k-0314",
+              engine="gpt-3.5-turbo",
               prompt=f'{text_from_pdf}\nQuestion: {question}\nAnswer:',
               temperature=0.5,
-              max_tokens=30000
+              max_tokens=5000
             )
             st.write(response.choices[0].text.strip())
         else:
