@@ -57,10 +57,10 @@ if uploaded_file is not None:
     if st.button('Obtener respuesta del PDF'):
         if question and openai.api_key and text_from_pdf:
             response = openai.Completion.create(
-              engine="text-davinci-002",
+              engine="gpt-4-32k-0314",
               prompt=f'{text_from_pdf}\nQuestion: {question}\nAnswer:',
               temperature=0.5,
-              max_tokens=100
+              max_tokens=30000
             )
             st.write(response.choices[0].text.strip())
         else:
