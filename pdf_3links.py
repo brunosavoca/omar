@@ -5,9 +5,10 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain 
+from gensim.summarization import summarize
 
 # Esto es para el sidebar, donde el usuario ingresa la clave de la API de OpenAI
-openai.api_key = st.sidebar.text_input("Introduce tu OpenAI API Key")
+openai_api_key = st.sidebar.text_input("Introduce tu OpenAI API Key")
 
 # Interacción con PDFs
 st.header('Interactuar con PDFs')
@@ -33,7 +34,7 @@ if pdf_file is not None:
     )
     texts = text_splitter.split_text(raw_text)
 
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
     docsearch = FAISS.from_texts(texts, embeddings)
 
