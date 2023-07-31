@@ -26,10 +26,10 @@ def generate_article(url1, url2, url3):
     combined_content = content1 + " " + content2 + " " + content3
 
     response = openai.Completion.create(
-      engine="text-davinci-002",
+      engine="gpt-4-32k-0314",
       prompt=combined_content,
-      temperature=0.5,
-      max_tokens=1000
+      temperature=0.1,
+      max_tokens=30000
     )
     
     return response.choices[0].text.strip()
