@@ -46,7 +46,7 @@ def main():
             #acá se puede utilizar diferentes modelos, en este caso será OpenAI
             chain = load_qa_chain(OpenAI(), chain_type="stuff")
 
-        query = st.text_input("What do you need to know about this document?", "Create a brief summary")
+        query = st.text_input("What do you need to know about this document?", "Explain this document, be as detailed as possible")
         if st.button("Search"):
             with st.spinner('Searching for your answer...'):
                 docs = docsearch.similarity_search(query)
