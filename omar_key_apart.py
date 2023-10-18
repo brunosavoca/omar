@@ -15,11 +15,11 @@ def main():
     OPENAI_API_KEY = st.sidebar.text_input("OpenAI API key", value="", type="password")
     os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
-    st.title("OmarGPT - Chateá con tus documentos")
-    pdf_file = st.file_uploader("Cargá tu PDF", type=["pdf"])
+    st.title("Welcome to StudyAid 📚")
+    pdf_file = st.file_uploader("Drag and drop your PDF", type=["pdf"])
 
     if pdf_file is not None:
-        with st.spinner('Procesando PDF cargado'):
+        with st.spinner('Working on your PDF, this may take a few seconds'):
             # Process the uploaded file
             reader = PdfReader(pdf_file)
 
@@ -46,8 +46,8 @@ def main():
             #acá se puede utilizar diferentes modelos, en este caso será OpenAI
             chain = load_qa_chain(OpenAI(), chain_type="stuff")
 
-        query = st.text_input("Qué necesitas saber de este documento?", "breve resumen de este documento")
-        if st.button("Buscar"):
+        query = st.text_input("What do you need to know about this document?", "Create a brief summary")
+        if st.button("Search"):
             with st.spinner('Searching for your answer...'):
                 docs = docsearch.similarity_search(query)
                 answer = chain.run(input_documents=docs, question=query)
