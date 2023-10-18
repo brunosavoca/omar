@@ -16,6 +16,12 @@ def main():
     os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
     st.title("Welcome to StudyAid 📚")
+    
+    # Adding a subheader and an informational paragraph
+    st.subheader("How to Use This App")
+    st.warning("Upload a PDF document to get insights. You can request a detailed explanation, bullet-point summaries, and more. "
+             "Enter your OpenAI API key in the sidebar to enable advanced features.")
+    
     pdf_file = st.file_uploader("Drag and drop your PDF", type=["pdf"])
 
     if pdf_file is not None:
